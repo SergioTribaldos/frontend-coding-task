@@ -1,17 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {EmployeeCardComponent} from './components/employee-card/employee-card.component';
+import {MaterialModule} from '../core/material.module';
+import {EmployeeListComponent} from './components/employee-list/employee-list.component';
 
 
 @NgModule({
   declarations: [
-    EmployeeCardComponent
+    EmployeeListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
   exports: [
-    EmployeeCardComponent
+    EmployeeListComponent
   ]
 })
 export class SharedModule {
