@@ -8,6 +8,7 @@ import {Employee} from '../../../core/models/employees.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeListComponent implements OnInit {
+  displayedColumns: string[] = ['name', 'surname', 'workPosition', 'dateOfBirth'];
 
   @Input() employees: Employee[];
 
@@ -15,6 +16,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.employees);
   }
 
 }
