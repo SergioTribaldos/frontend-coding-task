@@ -6,6 +6,8 @@ import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularFireModule} from '@angular/fire';
+import {ReactiveFormsModule} from '@angular/forms';
+
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDVkjGminmoFvcLCqewuhYY5UTEc8xMfMA',
@@ -22,6 +24,7 @@ const firebaseConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     CoreModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
