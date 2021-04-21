@@ -16,7 +16,6 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.employees);
   }
 
 }

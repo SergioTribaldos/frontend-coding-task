@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {Employee} from '../core/models/employees.model';
-import {filter, map, switchMap, withLatestFrom} from 'rxjs/operators';
+import {filter, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {FirebaseService} from '../core/services/firebase.service';
 
 @Component({
   selector: 'app-home',
@@ -10,21 +11,14 @@ import {filter, map, switchMap, withLatestFrom} from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
   employees$: Observable<Employee[]>;
+  dat: any;
 
-  constructor() {
+  constructor(private firebaseService: FirebaseService) {
 
   }
 
   ngOnInit(): void {
-    this.employees$ = of([
-      {name: 'Sergio', surname: 'Tridsdbaldos', workPosition: 'Angular', dateOfBirth: new Date()},
-      {name: 'Pepe', surname: 'Tribaldos', workPosition: 'Angular', dateOfBirth: new Date()},
-      {name: 'Antoio', surname: 'Tribaldos', workPosition: 'Angular', dateOfBirth: new Date()},
-      {name: 'Jarl', surname: 'Tribaldos', workPosition: 'Angular', dateOfBirth: new Date()},
-      {name: 'Peich', surname: 'Tribaldos', workPosition: 'Angular', dateOfBirth: new Date()},
-      {name: 'NaN', surname: 'Tribaldos', workPosition: 'Angular', dateOfBirth: new Date()},
-    ]);
-
+    this.employees$ = this.firebaseService.getEmployees();
 
   }
 
