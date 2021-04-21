@@ -1,10 +1,18 @@
-table{
+table {
   width: 100%;
+  user-select: none;
 }
- .mat-row {
-   transition: background .2s;
-}
- .mat-row:hover{
-   background: whitesmoke;
 
- }
+.mat-header-row th {
+  font-size: 1.2em;
+  color: black;
+}
+
+.mat-row {
+  transition: background .2s;
+}
+
+.mat-row:hover {
+  background: whitesmoke;
+
+}
