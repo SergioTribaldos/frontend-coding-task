@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {Employee} from '../core/models/employees.model';
-import {filter, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {FirebaseService} from '../core/services/firebase.service';
+import {SearchStringService} from '../core/services/search-string.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +12,16 @@ import {FirebaseService} from '../core/services/firebase.service';
 })
 export class HomeComponent implements OnInit {
   employees$: Observable<Employee[]>;
-  dat: any;
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, private searchStringService: SearchStringService) {
 
   }
 
   ngOnInit(): void {
-    this.employees$ = this.firebaseService.getEmployees();
+    const employees$ = this.firebaseService.getEmployees();
+    this.employees$ = combineLatest([employees$, this.searchStringService.searchStringChanged$]).pipe(
+      map(([employees, searchString]) => this.searchStringService.filterByStringSearch(searchString, employees))
+    );
 
   }
 
