@@ -6,6 +6,10 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
+  {
+    path: 'create',
+    loadChildren: () => import('./employee-create/employee-create.module').then(m => m.EmployeeCreateModule)
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 @NgModule({
