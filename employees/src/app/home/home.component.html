@@ -1,3 +1,7 @@
-<div class="employee-list-container">
+<div *ngIf="!!(employees$|async);else loading" class="employee-list-container">
   <app-employee-list [employees]="(employees$|async)!"></app-employee-list>
 </div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
