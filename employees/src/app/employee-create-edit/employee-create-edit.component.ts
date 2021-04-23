@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
-import { DynamicFormConfig } from '../core/models/dynamic-form.model';
-import { FirebaseService } from '../core/services/firebase.service';
-import { Employee } from '../core/models/employees.model';
-import { NotificationService } from '../core/services/notification.service';
-import { HttpService } from '../core/services/http.service';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { DEFAULT_FORM_CONFIG } from './constants/form-config.constants';
+import {DynamicFormConfig} from '../core/models/dynamic-form.model';
+import {FirebaseService} from '../core/services/firebase.service';
+import {Employee} from '../core/models/employees.model';
+import {NotificationService} from '../core/services/notification.service';
+import {HttpService} from '../core/services/http.service';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {DEFAULT_FORM_CONFIG} from './constants/form-config.constants';
+import {Location} from '@angular/common';
 
 const POSITIONS_URL = 'https://ibillboard.com/api/positions';
 
@@ -24,10 +25,15 @@ export class EmployeeCreateEditComponent implements OnInit {
   constructor(
     private firebaseService: FirebaseService,
     private notificationService: NotificationService,
-    private httpService: HttpService
-  ) {}
+    private httpService: HttpService,
+    private location: Location
+  ) {
+  }
 
   ngOnInit(): void {
+    const navigationState = this.location.getState() as any;
+    const {isEditMode, employee} = navigationState;
+    // const formConfig: DynamicFormConfig[] = isEditMode ? this.transform(employee) : DEFAULT_FORM_CONFIG;
     this.formConfig$ = this.httpService.get(POSITIONS_URL).pipe(
       map(result => result.positions),
       map(positions =>
