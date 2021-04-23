@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmployeeCreateComponent } from './employee-create.component';
+import { EmployeeCreateEditComponent } from './employee-create-edit.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {MaterialModule} from '../core/material.module';
@@ -8,13 +8,13 @@ import {MaterialModule} from '../core/material.module';
 const routes: Routes = [
   {
     path: '',
-    component: EmployeeCreateComponent
+    component: EmployeeCreateEditComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    EmployeeCreateComponent
+    EmployeeCreateEditComponent
   ],
   imports: [
     CommonModule,
@@ -23,4 +23,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class EmployeeCreateModule { }
+export class EmployeeCreateEditModule { }

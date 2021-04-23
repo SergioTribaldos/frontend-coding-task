@@ -13,11 +13,11 @@ import { DEFAULT_FORM_CONFIG } from './constants/form-config.constants';
 const POSITIONS_URL = 'https://ibillboard.com/api/positions';
 
 @Component({
-  selector: 'app-employee-create',
-  templateUrl: './employee-create.component.html',
-  styleUrls: ['./employee-create.component.scss']
+  selector: 'app-employee-create-edit',
+  templateUrl: './employee-create-edit.component.html',
+  styleUrls: ['./employee-create-edit.component.scss']
 })
-export class EmployeeCreateComponent implements OnInit {
+export class EmployeeCreateEditComponent implements OnInit {
   formConfig$: Observable<DynamicFormConfig[]>;
   formGroup: FormGroup;
 
