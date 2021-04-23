@@ -56,7 +56,7 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   setForm(formGroup: FormGroup): void {
-    console.log(formGroup.getRawValue());
+    this.formGroup = formGroup;
   }
 
 
