@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Employee} from '../models/employees.model';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,8 @@ export class FirebaseService {
     );
   }
 
-  addEmployee(employee: Employee) {
+  addEmployee(employee: Employee): Observable<any> {
+    return from(this.db.collection(this.COLLECTION).add(employee));
   }
 
   removeEmployee(employee: Employee) {
