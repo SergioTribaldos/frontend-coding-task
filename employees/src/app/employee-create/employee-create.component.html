@@ -1,1 +1,5 @@
-<p>employee-create works!</p>
+<div class="employee-details-container">
+  <app-employee-details [formConfig]="formConfig" (formChanged)="setForm($event)"></app-employee-details>
+  <button mat-raised-button color="accent">Add employee</button>
+</div>
+

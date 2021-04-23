@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeCreateComponent } from './employee-create.component';
 import {RouterModule, Routes} from '@angular/router';
+import {SharedModule} from '../shared/shared.module';
+import {MaterialModule} from '../core/material.module';
 
 const routes: Routes = [
   {
@@ -16,6 +18,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    SharedModule,
+    MaterialModule,
     RouterModule.forChild(routes)
   ]
 })
