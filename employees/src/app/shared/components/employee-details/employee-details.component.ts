@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 import {Subject} from 'rxjs';
@@ -13,7 +13,7 @@ import {DynamicFormConfig} from '../../../core/models/dynamic-form.model';
   styleUrls: ['./employee-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EmployeeDetailsComponent implements OnInit, OnDestroy {
+export class EmployeeDetailsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() formConfig: DynamicFormConfig[];
 
   @Output() formChanged = new EventEmitter<FormGroup>();
@@ -25,19 +25,25 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.formGroup = this.formTransformService.createFormGroup(this.formConfig);
-    this.formChanged.emit(this.formGroup);
-    this.formGroup.valueChanges.pipe(
-      debounceTime(500),
-      takeUntil(this.destroy$)
-    ).subscribe(() => {
-      this.formChanged.emit(this.formGroup);
-    });
+
 
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!!changes.formConfig.currentValue) {
+      this.formGroup = this.formTransformService.createFormGroup(this.formConfig);
+      this.formChanged.emit(this.formGroup);
+      this.formGroup.valueChanges.pipe(
+        debounceTime(500),
+        takeUntil(this.destroy$)
+      ).subscribe(() => {
+        this.formChanged.emit(this.formGroup);
+      });
+    }
   }
 }

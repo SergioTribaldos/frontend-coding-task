@@ -1,5 +1,5 @@
 <div class="employee-details-container">
-  <app-employee-details [formConfig]="formConfig" (formChanged)="setForm($event)"></app-employee-details>
-  <button [disabled]="!formGroup.valid" (click)="addEmployee()" mat-raised-button color="accent">Add employee</button>
+  <app-employee-details [formConfig]="(formConfig$|async)!" (formChanged)="setForm($event)"></app-employee-details>
+  <button [disabled]="!formGroup?.valid" (click)="addEmployee()" mat-raised-button color="accent">Add employee</button>
 </div>
 

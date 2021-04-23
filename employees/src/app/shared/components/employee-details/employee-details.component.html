@@ -1,4 +1,4 @@
-<form class="form-group" [formGroup]="formGroup">
+<form *ngIf="!!formGroup" class="form-group" [formGroup]="formGroup">
   <ng-container *ngFor="let control of formConfig">
     <ng-container [ngSwitch]="control.type">
 

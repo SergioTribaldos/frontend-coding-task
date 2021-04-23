@@ -1,10 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-import {DynamicFormConfig} from '../core/models/dynamic-form.model';
-import {FirebaseService} from '../core/services/firebase.service';
-import {Employee} from '../core/models/employees.model';
-import {NotificationService} from '../core/services/notification.service';
+import { DynamicFormConfig } from '../core/models/dynamic-form.model';
+import { FirebaseService } from '../core/services/firebase.service';
+import { Employee } from '../core/models/employees.model';
+import { NotificationService } from '../core/services/notification.service';
+import { HttpService } from '../core/services/http.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { DEFAULT_FORM_CONFIG } from './constants/form-config.constants';
+
+const POSITIONS_URL = 'https://ibillboard.com/api/positions';
 
 @Component({
   selector: 'app-employee-create',
@@ -12,50 +18,22 @@ import {NotificationService} from '../core/services/notification.service';
   styleUrls: ['./employee-create.component.scss']
 })
 export class EmployeeCreateComponent implements OnInit {
-  formConfig: DynamicFormConfig[];
+  formConfig$: Observable<DynamicFormConfig[]>;
   formGroup: FormGroup;
 
-  constructor(private firebaseService: FirebaseService, private notificationService: NotificationService) {
-  }
+  constructor(
+    private firebaseService: FirebaseService,
+    private notificationService: NotificationService,
+    private httpService: HttpService
+  ) {}
 
   ngOnInit(): void {
-
-    this.formConfig = [{
-      type: 'input',
-      displayName: 'Name',
-      controlName: 'name',
-      value: 'Sergio',
-      editable: true,
-      errorMessage: 'Name is required'
-    },
-      {
-        type: 'input',
-        displayName: 'Surname',
-        controlName: 'surname',
-        value: 'Tribaldos',
-        editable: true,
-        errorMessage: 'Surname is required'
-      },
-      {
-        type: 'datepicker',
-        displayName: 'Date of Birth',
-        controlName: 'dateOfBirth',
-        value: new Date('Tue Apr 16 2021 00:00:00 GMT+0200 (Central European Summer Time'),
-        editable: true,
-        errorMessage: 'Date of birth is required'
-      },
-      {
-        type: 'select',
-        displayName: 'Select position',
-        controlName: 'workPosition',
-        value: 'Angular',
-        editable: true,
-        errorMessage: 'Position is required',
-        options: ['Angular', 'React', 'Php']
-      }
-    ];
-
-
+    this.formConfig$ = this.httpService.get(POSITIONS_URL).pipe(
+      map(result => result.positions),
+      map(positions =>
+        this.addPositionsToConfig(DEFAULT_FORM_CONFIG, positions)
+      )
+    );
   }
 
   setForm(formGroup: FormGroup): void {
@@ -64,12 +42,31 @@ export class EmployeeCreateComponent implements OnInit {
 
   addEmployee(): void {
     const employee: Employee = this.formGroup.getRawValue();
-    this.firebaseService.addEmployee(employee).subscribe(() => {
-      this.notificationService.showSuccessMessage('Employee added successfully');
-    }, () => {
-      this.notificationService.showErrorMessage('Employee could not be added');
-    });
+    this.firebaseService.addEmployee(employee).subscribe(
+      () => {
+        this.notificationService.showSuccessMessage(
+          'Employee added successfully'
+        );
+      },
+      () => {
+        this.notificationService.showErrorMessage(
+          'Employee could not be added'
+        );
+      }
+    );
   }
 
-
+  private addPositionsToConfig(
+    formConfig: DynamicFormConfig[],
+    positions: string[]
+  ): DynamicFormConfig[] {
+    return formConfig.map(dynamicFromConfig =>
+      dynamicFromConfig.type === 'select'
+        ? {
+            ...dynamicFromConfig,
+            options: positions
+          }
+        : dynamicFromConfig
+    );
+  }
 }
