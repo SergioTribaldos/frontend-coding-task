@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {DynamicFormConfig} from '../../shared/components/employee-details/employee-details.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+
+import {DynamicFormConfig} from '../models/dynamic-form.model';
 
 @Injectable({
   providedIn: 'root'
