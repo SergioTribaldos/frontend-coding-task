@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 import {DynamicFormConfig} from '../core/models/dynamic-form.model';
+import {FirebaseService} from '../core/services/firebase.service';
+import {Employee} from '../core/models/employees.model';
 
 @Component({
   selector: 'app-employee-create',
@@ -12,7 +14,7 @@ export class EmployeeCreateComponent implements OnInit {
   formConfig: DynamicFormConfig[];
   formGroup: FormGroup;
 
-  constructor() {
+  constructor(private firebaseService: FirebaseService) {
   }
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class EmployeeCreateComponent implements OnInit {
       displayName: 'Name',
       controlName: 'name',
       value: 'Sergio',
-      editable: false,
+      editable: true,
       errorMessage: 'Name is required'
     },
       {
@@ -44,7 +46,7 @@ export class EmployeeCreateComponent implements OnInit {
       {
         type: 'select',
         displayName: 'Select position',
-        controlName: 'position',
+        controlName: 'workPosition',
         value: 'Angular',
         editable: true,
         errorMessage: 'Position is required',
@@ -57,6 +59,13 @@ export class EmployeeCreateComponent implements OnInit {
 
   setForm(formGroup: FormGroup): void {
     this.formGroup = formGroup;
+  }
+
+  addEmployee(): void {
+    const employee: Employee = this.formGroup.getRawValue();
+    this.firebaseService.addEmployee(employee).subscribe((val) => {
+      console.log(val);
+    });
   }
 
 
