@@ -1,5 +1,5 @@
 <div *ngIf="!!(employees$|async);else loading" class="employee-list-container">
-  <app-employee-list [employees]="(employees$|async)!"></app-employee-list>
+  <app-employee-list [employees]="(employees$|async)!" (employeeSelected)="navigateToEmployeeDetails($event)"></app-employee-list>
 </div>
 
 <ng-template #loading>

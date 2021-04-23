@@ -4,6 +4,7 @@ import {Employee} from '../core/models/employees.model';
 import {FirebaseService} from '../core/services/firebase.service';
 import {SearchStringService} from '../core/services/search-string.service';
 import {map, shareReplay} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,11 @@ import {map, shareReplay} from 'rxjs/operators';
 export class HomeComponent implements OnInit {
   employees$: Observable<Employee[]>;
 
-  constructor(private firebaseService: FirebaseService, private searchStringService: SearchStringService) {
-
+  constructor(
+    private router: Router,
+    private firebaseService: FirebaseService,
+    private searchStringService: SearchStringService
+  ) {
   }
 
   ngOnInit(): void {
@@ -25,4 +29,7 @@ export class HomeComponent implements OnInit {
 
   }
 
+  navigateToEmployeeDetails(employee: Employee): void {
+    this.router.navigate(['create-edit'], {state: {employee, isEditMode: true}});
+  }
 }
