@@ -12,3 +12,12 @@ body {
 mat-spinner {
   margin: 200px auto;
 }
+
+.error-snackbar {
+  color: white;
+  background: #a70624;
+}
+.success-snackbar{
+  color: white;
+  background: #06961d;
+}
