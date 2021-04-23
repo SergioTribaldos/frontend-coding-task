@@ -3,7 +3,7 @@ import {combineLatest, Observable} from 'rxjs';
 import {Employee} from '../core/models/employees.model';
 import {FirebaseService} from '../core/services/firebase.service';
 import {SearchStringService} from '../core/services/search-string.service';
-import {map} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const employees$ = this.firebaseService.getEmployees();
+    const employees$ = this.firebaseService.getEmployees().pipe(shareReplay());
     this.employees$ = combineLatest([employees$, this.searchStringService.searchStringChanged$]).pipe(
       map(([employees, searchString]) => this.searchStringService.filterByStringSearch(searchString, employees))
     );
