@@ -1,1 +1,33 @@
-<p>employee-details works!</p>
+<form [formGroup]="formGroup">
+  <ng-container *ngFor="let control of formConfig">
+    <ng-container [ngSwitch]="control.type">
+
+      <mat-form-field *ngSwitchCase="'input'" appearance="outline">
+        <mat-label>{{control.displayName}}</mat-label>
+        <input matInput [formControlName]="control.controlName" [value]="control.value" class="title-input"/>
+        <mat-error>{{control.errorMessage}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngSwitchCase="'datepicker'" appearance="fill">
+        <mat-label>{{control.displayName}}</mat-label>
+        <input matInput [formControlName]="control.controlName" [value]="control.value" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>{{control.errorMessage}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="always" *ngSwitchCase="'select'" appearance="fill">
+        <mat-label>{{control.displayName}}</mat-label>
+        <mat-select [formControlName]="control.controlName" [placeholder]="control.value.toString()" >
+          <mat-option  *ngFor="let option of control.options" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    </ng-container>
+  </ng-container>
+
+</form>
+
