@@ -21,6 +21,6 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row (click)="employeeSelected.emit(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <div *ngIf="!employees?.length" class="no-results mat-elevation-z8"><span>No results found</span></div>
