@@ -4,6 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {DynamicFormConfig} from '../core/models/dynamic-form.model';
 import {FirebaseService} from '../core/services/firebase.service';
 import {Employee} from '../core/models/employees.model';
+import {NotificationService} from '../core/services/notification.service';
 
 @Component({
   selector: 'app-employee-create',
@@ -14,7 +15,7 @@ export class EmployeeCreateComponent implements OnInit {
   formConfig: DynamicFormConfig[];
   formGroup: FormGroup;
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -63,8 +64,10 @@ export class EmployeeCreateComponent implements OnInit {
 
   addEmployee(): void {
     const employee: Employee = this.formGroup.getRawValue();
-    this.firebaseService.addEmployee(employee).subscribe((val) => {
-      console.log(val);
+    this.firebaseService.addEmployee(employee).subscribe(() => {
+      this.notificationService.showSuccessMessage('Employee added successfully');
+    }, () => {
+      this.notificationService.showErrorMessage('Employee could not be added');
     });
   }
 
