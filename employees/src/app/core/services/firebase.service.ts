@@ -28,8 +28,8 @@ export class FirebaseService {
     return from(this.db.collection(this.COLLECTION).add(employee));
   }
 
-  removeEmployee(employee: Employee) {
-
+  removeEmployee({id}: Employee): Observable<any> {
+    return from(this.db.collection(this.COLLECTION).doc(id).delete());
   }
 
   updateEmployee(employee: Employee) {
