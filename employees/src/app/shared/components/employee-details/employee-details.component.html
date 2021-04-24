@@ -3,27 +3,27 @@
     <ng-container [ngSwitch]="control.type">
 
       <mat-form-field *ngSwitchCase="'input'" appearance="outline">
-        <mat-label>{{control.displayName}}</mat-label>
-        <input matInput [formControlName]="control.controlName" [value]="control.value" class="title-input"/>
-        <mat-error>{{control.errorMessage}}</mat-error>
+        <mat-label class="form-group__label">{{control.displayName}}</mat-label>
+        <input class="form-group__input" matInput [formControlName]="control.controlName" [value]="control.value" class="title-input"/>
+        <mat-error class="form-group__error">{{control.errorMessage}}</mat-error>
       </mat-form-field>
 
       <mat-form-field *ngSwitchCase="'datepicker'" appearance="fill">
-        <mat-label>{{control.displayName}}</mat-label>
+        <mat-label class="form-group__label">{{control.displayName}}</mat-label>
         <input matInput [formControlName]="control.controlName" [value]="control.value" [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error>{{control.errorMessage}}</mat-error>
+        <mat-datepicker class="form-group__datepicker" #picker></mat-datepicker>
+        <mat-error class="form-group__error">{{control.errorMessage}}</mat-error>
       </mat-form-field>
 
       <mat-form-field floatLabel="always" *ngSwitchCase="'select'" appearance="fill">
-        <mat-label>{{control.displayName}}</mat-label>
-        <mat-select [formControlName]="control.controlName" [placeholder]="control.value.toString()">
-          <mat-option *ngFor="let option of control.options" [value]="option">
+        <mat-label class="form-group__label">{{control.displayName}}</mat-label>
+        <mat-select class="form-group__select" [formControlName]="control.controlName" [placeholder]="control.value.toString()">
+          <mat-option class="form-group__option" *ngFor="let option of control.options" [value]="option">
             {{option}}
           </mat-option>
         </mat-select>
-        <mat-error>{{control.errorMessage}}</mat-error>
+        <mat-error class="form-group__error">{{control.errorMessage}}</mat-error>
       </mat-form-field>
 
     </ng-container>
