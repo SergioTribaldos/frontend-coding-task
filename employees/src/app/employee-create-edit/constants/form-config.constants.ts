@@ -1,4 +1,4 @@
-import {DynamicFormConfig} from '../../core/models/dynamic-form.model';
+import {ControlName, DynamicFormConfig} from '../../core/models/dynamic-form.model';
 
 export const DEFAULT_FORM_CONFIG: DynamicFormConfig[] = [
   {
@@ -35,3 +35,5 @@ export const DEFAULT_FORM_CONFIG: DynamicFormConfig[] = [
     options: []
   }
 ];
+
+export const DEFAULT_EDITABLE_FIELDS: ControlName[] = ['name', 'workPosition'];
