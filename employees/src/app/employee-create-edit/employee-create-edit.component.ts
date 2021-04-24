@@ -6,10 +6,11 @@ import {FirebaseService} from '../core/services/firebase.service';
 import {Employee} from '../core/models/employees.model';
 import {NotificationService} from '../core/services/notification.service';
 import {HttpService} from '../core/services/http.service';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {DEFAULT_FORM_CONFIG} from './constants/form-config.constants';
 import {Location} from '@angular/common';
+import {FormTransformService} from '../core/services/form-transform.service';
 
 const POSITIONS_URL = 'https://ibillboard.com/api/positions';
 
@@ -26,19 +27,22 @@ export class EmployeeCreateEditComponent implements OnInit {
     private firebaseService: FirebaseService,
     private notificationService: NotificationService,
     private httpService: HttpService,
-    private location: Location
+    private location: Location,
+    private formTransformService: FormTransformService
   ) {
   }
 
   ngOnInit(): void {
     const navigationState = this.location.getState() as any;
     const {isEditMode, employee} = navigationState;
-    // const formConfig: DynamicFormConfig[] = isEditMode ? this.transform(employee) : DEFAULT_FORM_CONFIG;
     this.formConfig$ = this.httpService.get(POSITIONS_URL).pipe(
       map(result => result.positions),
       map(positions =>
         this.addPositionsToConfig(DEFAULT_FORM_CONFIG, positions)
-      )
+      ),
+      filter(() => isEditMode),
+      map((dynamicFormConfig: DynamicFormConfig[]) =>
+        this.formTransformService.mergeEmployeeWithDynamicFormConfig(employee, dynamicFormConfig))
     );
   }
 
@@ -69,9 +73,9 @@ export class EmployeeCreateEditComponent implements OnInit {
     return formConfig.map(dynamicFromConfig =>
       dynamicFromConfig.type === 'select'
         ? {
-            ...dynamicFromConfig,
-            options: positions
-          }
+          ...dynamicFromConfig,
+          options: positions
+        }
         : dynamicFromConfig
     );
   }
