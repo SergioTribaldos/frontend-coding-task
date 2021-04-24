@@ -7,8 +7,8 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
-    path: 'create-edit',
-    loadChildren: () => import('./employee-create-edit/employee-create-edit.module').then(m => m.EmployeeCreateEditModule)
+    path: 'employee',
+    loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule)
   },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {ControlName, DynamicFormConfig} from '../models/dynamic-form.model';
 import {Employee} from '../models/employees.model';
-import {DEFAULT_EDITABLE_FIELDS, DEFAULT_FORM_CONFIG} from '../../employee-create-edit/constants/form-config.constants';
+import {DEFAULT_EDITABLE_FIELDS, DEFAULT_FORM_CONFIG} from '../../employees/constants/form-config.constants';
 
 @Injectable({
   providedIn: 'root'

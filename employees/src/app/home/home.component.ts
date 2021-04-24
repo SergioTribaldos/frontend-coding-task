@@ -30,6 +30,6 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToEmployeeDetails(employee: Employee): void {
-    this.router.navigate(['create-edit'], {state: {employee, isEditMode: true}});
+    this.router.navigate(['employee/edit'], {state: {employee}});
   }
 }

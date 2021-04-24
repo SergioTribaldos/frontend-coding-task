@@ -37,3 +37,5 @@ export const DEFAULT_FORM_CONFIG: DynamicFormConfig[] = [
 ];
 
 export const DEFAULT_EDITABLE_FIELDS: ControlName[] = ['name', 'workPosition'];
+
+export const POSITIONS_URL = 'https://ibillboard.com/api/positions';

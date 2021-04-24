@@ -1,0 +1,11 @@
+<div class="employee-details-container">
+  <app-employee-details [formConfig]="(formConfig$|async)!" (formChanged)="setForm($event)"></app-employee-details>
+  <div>
+    <button [disabled]="!formGroup?.valid" (click)="updateEmployee()" mat-raised-button color="accent">Update Employee
+    </button>
+    <button (click)="removeEmployee()" mat-raised-button color="warn">Remove Employee
+    </button>
+  </div>
+
+
+</div>
