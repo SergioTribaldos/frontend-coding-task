@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
-  <span>My Application</span>
-  <div class="search-container">
+  <span>{{title}}</span>
+  <div [hidden]="showSearchBar" class="search-container">
     <div class="input-container">
         <input
           [formControl]="searchControl"
