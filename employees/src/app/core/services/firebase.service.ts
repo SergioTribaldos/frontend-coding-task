@@ -18,7 +18,8 @@ export class FirebaseService {
     return this.db.collection(this.COLLECTION).get().pipe(
       map((data) => data.docs.map((doc) => {
         const employee = doc.data() as Employee;
-        return this.parseDate(employee);
+        const employeeWithId = {...employee, id: doc.id};
+        return this.parseDate(employeeWithId);
       }))
     );
   }
