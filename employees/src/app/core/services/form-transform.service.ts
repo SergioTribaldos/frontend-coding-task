@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {ControlName, DynamicFormConfig} from '../models/dynamic-form.model';
 import {Employee} from '../models/employees.model';
-import {DEFAULT_EDITABLE_FIELDS} from '../../employee-create-edit/constants/form-config.constants';
+import {DEFAULT_EDITABLE_FIELDS, DEFAULT_FORM_CONFIG} from '../../employee-create-edit/constants/form-config.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,20 @@ export class FormTransformService {
       const editable = this.getIsEditable(formConfig, DEFAULT_EDITABLE_FIELDS);
       return {...formConfig, value, editable};
     });
+  }
+
+  getFormConfigWithAddedPositions(
+    positions: string[],
+    formConfig: DynamicFormConfig[] = DEFAULT_FORM_CONFIG
+  ): DynamicFormConfig[] {
+    return formConfig.map(dynamicFromConfig =>
+      dynamicFromConfig.type === 'select'
+        ? {
+          ...dynamicFromConfig,
+          options: positions
+        }
+        : dynamicFromConfig
+    );
   }
 
   private getIsEditable(formConfig: DynamicFormConfig, editableFields: ControlName[]): boolean {

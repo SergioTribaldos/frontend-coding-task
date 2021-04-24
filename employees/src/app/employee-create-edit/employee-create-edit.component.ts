@@ -8,7 +8,6 @@ import {NotificationService} from '../core/services/notification.service';
 import {HttpService} from '../core/services/http.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {DEFAULT_FORM_CONFIG} from './constants/form-config.constants';
 import {Location} from '@angular/common';
 import {FormTransformService} from '../core/services/form-transform.service';
 
@@ -39,7 +38,7 @@ export class EmployeeCreateEditComponent implements OnInit {
     this.formConfig$ = this.httpService.get(POSITIONS_URL).pipe(
       map(result => result.positions),
       map(positions =>
-        this.addPositionsToConfig(DEFAULT_FORM_CONFIG, positions)
+        this.formTransformService.getFormConfigWithAddedPositions(positions)
       ),
       map((dynamicFormConfig: DynamicFormConfig[]) => {
           return isEditMode ? this.formTransformService.mergeEmployeeWithDynamicFormConfig(employee, dynamicFormConfig) : dynamicFormConfig;
@@ -69,17 +68,4 @@ export class EmployeeCreateEditComponent implements OnInit {
     );
   }
 
-  private addPositionsToConfig(
-    formConfig: DynamicFormConfig[],
-    positions: string[]
-  ): DynamicFormConfig[] {
-    return formConfig.map(dynamicFromConfig =>
-      dynamicFromConfig.type === 'select'
-        ? {
-          ...dynamicFromConfig,
-          options: positions
-        }
-        : dynamicFromConfig
-    );
-  }
 }
