@@ -56,8 +56,20 @@ export class EditComponent implements OnInit {
     this.formGroup = formGroup;
   }
 
-  updateEmployee() {
-
+  updateEmployee(): void {
+    const updatedEmployee = this.formGroup.getRawValue() as unknown as Employee;
+    this.firebaseService.updateEmployee(this.selectedEmployee.id, updatedEmployee).subscribe(
+      () => {
+        this.notificationService.showSuccessMessage(
+          'Employee updated successfully'
+        );
+      },
+      () => {
+        this.notificationService.showErrorMessage(
+          'Employee could not be updated'
+        );
+      }
+    );
   }
 
   removeEmployee(): void {
