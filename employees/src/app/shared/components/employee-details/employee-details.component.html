@@ -4,7 +4,7 @@
 
       <mat-form-field *ngSwitchCase="'input'" appearance="outline">
         <mat-label class="form-group__label">{{control.displayName}}</mat-label>
-        <input class="form-group__input" matInput [formControlName]="control.controlName" [value]="control.value" class="title-input"/>
+        <input class="form-group__input" matInput [formControlName]="control.controlName" [value]="control.value"/>
         <mat-error class="form-group__error">{{control.errorMessage}}</mat-error>
       </mat-form-field>
 
@@ -29,6 +29,7 @@
     </ng-container>
   </ng-container>
 </form>
+<div class="aa"></div>
 
 
 
