@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output,
+import {
+  AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -14,7 +15,7 @@ import {Employee} from '../../../core/models/employees.model';
   styleUrls: ['./employee-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeeListComponent implements OnChanges {
+export class EmployeeListComponent implements OnChanges, AfterViewInit {
   @Input() employees: Employee[];
 
   @Output() employeeSelected = new EventEmitter<Employee>();
@@ -27,8 +28,12 @@ export class EmployeeListComponent implements OnChanges {
   constructor() {
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     this.dataSource = new MatTableDataSource(this.employees);
     this.dataSource.sort = this.sort;
-    }
+  }
 }
