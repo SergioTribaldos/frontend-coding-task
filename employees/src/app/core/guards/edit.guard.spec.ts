@@ -1,12 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { EditGuard } from './edit.guard';
+import {EditGuard} from './edit.guard';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('EditGuard', () => {
   let guard: EditGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule]
+    });
     guard = TestBed.inject(EditGuard);
   });
 

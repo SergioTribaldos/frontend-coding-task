@@ -37,7 +37,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     const navigationState = this.location.getState() as any;
-    const {employee} = navigationState;
+    const {employee} = navigationState || {};
     this.selectedEmployee = employee;
 
     this.formConfig$ = this.httpService.get(POSITIONS_URL).pipe(

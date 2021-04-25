@@ -1,6 +1,6 @@
 import {Employee} from '../../core/models/employees.model';
 import {DynamicFormConfig} from '../../core/models/dynamic-form.model';
-import firebase from 'firebase/app';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 
 
 export const EMPLOYEES_STUB: Employee[] = [
@@ -40,3 +40,17 @@ export const DEFAULT_FORM_CONFIG_STUB: DynamicFormConfig[] = [
     errorMessage: 'Name is required'
   }
 ];
+
+export const FIRESTORE_STUB = {
+  collection: () => ({
+    doc: () => ({
+      valueChanges: () => new BehaviorSubject(''),
+      set: () => new Promise<void>((resolve, _) => resolve()),
+    }),
+    get: (): Observable<any> => of({
+      docs: [{
+        data: () => FIREBASE_EMPLOYEE_STUB[0]
+      }]
+    })
+  }),
+};
