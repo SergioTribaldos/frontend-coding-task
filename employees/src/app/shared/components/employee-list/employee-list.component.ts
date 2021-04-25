@@ -1,4 +1,11 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+
 import {Employee} from '../../../core/models/employees.model';
 
 @Component({
@@ -7,17 +14,21 @@ import {Employee} from '../../../core/models/employees.model';
   styleUrls: ['./employee-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeeListComponent implements OnChanges {
   @Input() employees: Employee[];
 
   @Output() employeeSelected = new EventEmitter<Employee>();
 
+  @ViewChild(MatSort) sort: MatSort;
+
+  dataSource: any;
   displayedColumns: string[] = ['name', 'surname', 'workPosition', 'dateOfBirth'];
 
   constructor() {
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    this.dataSource = new MatTableDataSource(this.employees);
+    this.dataSource.sort = this.sort;
+    }
 }
