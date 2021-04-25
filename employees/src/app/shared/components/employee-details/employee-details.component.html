@@ -10,7 +10,7 @@
 
       <mat-form-field *ngSwitchCase="'datepicker'" appearance="fill">
         <mat-label class="form-group__label">{{control.displayName}}</mat-label>
-        <input matInput [formControlName]="control.controlName" [value]="control.value" [matDatepicker]="picker">
+        <input matInput [formControlName]="control.controlName" [value]="control.value" [matDatepicker]="picker" [max]="maxDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker class="form-group__datepicker" #picker></mat-datepicker>
         <mat-error class="form-group__error">{{control.errorMessage}}</mat-error>

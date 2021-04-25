@@ -18,6 +18,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() formChanged = new EventEmitter<FormGroup>();
 
+  readonly maxDate: Date = new Date();
   destroy$: Subject<boolean> = new Subject<boolean>();
   formGroup: FormGroup;
 
