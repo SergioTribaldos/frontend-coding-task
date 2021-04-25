@@ -22,7 +22,7 @@ export class EmployeeListComponent implements OnChanges, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  dataSource: any;
+  dataSource: MatTableDataSource<Employee>;
   displayedColumns: string[] = ['name', 'surname', 'workPosition', 'dateOfBirth'];
 
   constructor() {
