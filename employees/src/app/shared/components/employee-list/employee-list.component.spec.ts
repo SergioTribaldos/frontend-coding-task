@@ -29,7 +29,7 @@ describe('EmployeeListComponent', () => {
   it('Should show two rows is there is two employees', () => {
     fixture = TestBed.createComponent(EmployeeListComponent);
     component = fixture.componentInstance;
-    component.employees = EMPLOYEES_STUB;
+    component.dataSource = EMPLOYEES_STUB;
     fixture.detectChanges();
     const rowHtmlElements: NodeList = fixture.debugElement.nativeElement.querySelectorAll('tbody tr');
     expect(rowHtmlElements.length).toBe(2);
