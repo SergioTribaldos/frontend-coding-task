@@ -1,5 +1,7 @@
 import {Employee} from '../../core/models/employees.model';
 import {DynamicFormConfig} from '../../core/models/dynamic-form.model';
+import firebase from 'firebase/app';
+
 
 export const EMPLOYEES_STUB: Employee[] = [
   {
@@ -15,6 +17,16 @@ export const EMPLOYEES_STUB: Employee[] = [
     surname: 'Connor',
     workPosition: 'Angular',
     dateOfBirth: new Date()
+  }
+];
+
+export const FIREBASE_EMPLOYEE_STUB = [
+  {
+    id: 'hjf88hf3',
+    name: 'sergio',
+    surname: 'tribaldos',
+    workPosition: 'React',
+    dateOfBirth: {seconds: 1235987555}
   }
 ];
 
