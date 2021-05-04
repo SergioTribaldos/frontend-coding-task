@@ -58,10 +58,4 @@ export class FormTransformService {
     const [value] = (matchingValue as [string, any]).reverse();
     return value;
   }
-
-  private noWhitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { 'whitespace': true };
-}
 }
