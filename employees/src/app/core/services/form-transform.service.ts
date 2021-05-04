@@ -19,7 +19,7 @@ export class FormTransformService {
         [curr.controlName]: new FormControl({
           value: curr.value,
           disabled: !curr.editable
-        }, {validators: [Validators.required]})
+        }, {validators: [Validators.required,Validators.pattern("^\\s*(\\w.*)$")]})
       };
       return {...acc, ...current};
     }, {} as DynamicFormConfig);
@@ -58,4 +58,10 @@ export class FormTransformService {
     const [value] = (matchingValue as [string, any]).reverse();
     return value;
   }
+
+  private noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+}
 }
